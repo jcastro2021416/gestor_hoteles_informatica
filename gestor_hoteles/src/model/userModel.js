@@ -22,13 +22,17 @@ const UserSchema = new Schema({
         enum: ['USER', 'ADMIN', 'ADMIN_HOTEL'],
         default: 'USER',
     },
-    hotel: {
+    hotel: [{
         type: Schema.Types.ObjectId,
         ref: 'Hotel'
-    },
+    }],
     reservations: [{
         type: Schema.Types.ObjectId,
         ref: 'Reservation'
+    }],
+    service: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Service'
     }]
 });
 

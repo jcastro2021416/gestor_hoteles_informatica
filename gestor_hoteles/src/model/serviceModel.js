@@ -12,14 +12,18 @@ const  ServiceSchema = new Schema({
         type: Number,
         required: true,
     },
-    hotel: {
-        tyep: Schema.Types.ObjectId,
+    hotel: [{
+        type: Schema.Types.ObjectId,
         ref: 'Hotel',
-    },
+    }],
     reservations: [{
         type: Schema.Types.ObjectId,
         ref: 'Reservation'
-    }]
+    }],
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 module.exports = mongoose.model('Service', ServiceSchema)
