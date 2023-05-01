@@ -20,10 +20,10 @@ const HotelSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Event',
     }],
-    service: {
+    service: [{
         type: Schema.Types.ObjectId,
         ref: 'Service',
-    },
+    }],
     admin: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -31,7 +31,12 @@ const HotelSchema = new Schema({
     createAdmin: {
         type: Date,
         default: Date.now,
+    },
+    asignService:{
+        type: String,
+        require: true
     }
+    
 })
 
 module.exports = mongoose.model('Hotel', HotelSchema)

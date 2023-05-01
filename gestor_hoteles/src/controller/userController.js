@@ -132,6 +132,8 @@ const loginUser = async(req, res)=>{
     }
 }
 
+
+
 //--------------------------------------------------exportaciones de modulos------------------------------------------------------
 
 module.exports = {

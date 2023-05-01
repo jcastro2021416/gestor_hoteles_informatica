@@ -1,32 +1,46 @@
 'use strict'
 
 const Service = require('../model/serviceModel')
+const Hotel = require('../model/hotelModel')
 const User = require('../model/userModel')
 const bcrypt = require('bcrypt')
 
 //-------------------------------------Create Service--------------------------------------------
 
 const createService = async(req, res) =>{
-    const {name, price, hotel, reservation, userId} = req.body;
+    const {name, price, hotel, reservation} = req.body;
         try{
-            let service = await Service.findOne({name});
-            if(service){
-                return res.status(410).json({
-                    msg: `Un servicio con este nombre ya existe`,
+            // let service = await Service.findOne({name});
+            // if(service){
+            //     return res.status(410).json({
+            //         msg: `Un servicio con este nombre ya existe`,
+            //         ok: false,
+            //         service: service,
+            //     });
+            // }
+
+            const hotelExist = await Hotel.findById(hotel);
+            if(!hotelExist){
+                return res.status(400).json({
+                    msg: `No se encontro hotel con este ID`,
                     ok: false,
-                    service: service,
+                    hotel: hotelExist
                 });
             }
 
-            service = new Service({name, price, hotel, reservation});
-            service = await service.save();
+            const newService = await Service.create({name, price, hotel, reservation});
+
+            hotelExist.service = newService._id
+            await hotelExist.save();
+            
 
             res.status(200).json({
-                msg: `El servicio se a creado de forma correcta`,
+                msg: `El servicio  ${name} se a creado de forma correcta`,
                 ok: true,
-                service: service,
+                service: newService,
             });
         }catch(err){
+            console.log(err)
             res.status(500).json({
                 ok:false,
                 msg: 'No se a creado el servicio :(',
@@ -104,6 +118,7 @@ const deleteService = async(req ,res) => {
         throw new Error(err);
     }
 }
+
 
 //----------------------------------------exportaciones-----------------------------------------
 

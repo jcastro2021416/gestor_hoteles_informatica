@@ -2,6 +2,7 @@
 
 const Hotel = require('../model/hotelModel');
 const User = require('../model/userModel');
+const Service = require('../model/serviceModel')
 
 //-------------------------------------------------Crud hoteles ------------------------------------------------------------------
 const createHotel = async(req, res) => {
@@ -142,6 +143,38 @@ const deleteHotel = async(req, res) => {
     }catch(err){
         console.log(err);
         res.status(500).json({msg: `A ocurrido error al eliminar el hotel ${name}`})
+    }
+}
+
+//----------------------------------------------------AsignService------------------------------------------
+
+const AsignService = async(req, res) =>{
+    try{
+        
+        const hotel = await Hotel.findOne({hote_name: req.body.name});
+        const service = await Service.findOne({service_name: req.body.name});
+        if(!hotel){
+            return res.status(404).json({
+                error: `No se encontro el hotel`
+            });
+        }
+        if(!service){
+            return res.status(404).json({
+                error: `No se a encontrado el servicio`
+            });
+        }
+        if(hotel.service.incluides(service._id)){
+            return res.status(404).json({
+                error: `El hotel ya ha sido asignado a este servicio`
+            });
+        }
+        hotel.service.push(service._id);
+        await hotel.save();
+        res.status(201).json(hotel)
+
+    }catch(err){
+        console.log(err)
+        throw new Error(err)
     }
 }
 
