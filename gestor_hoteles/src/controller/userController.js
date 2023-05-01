@@ -49,7 +49,7 @@ const readUser = async(req, res) => {
                 msg: 'No hay usuario disponible dentro de la db'
             });
         }else{
-            res.status(200).send({alumno_obtenidos: user});
+            res.status(200).send({usuarios_obtenidos: user});
         }
 
     }catch(err){
@@ -68,13 +68,13 @@ const updateUser = async(req, res) => {
         : userEdit.password;
         const userComplete = await User.findByIdAndUpdate(id, userEdit, {new: true});
         if(userComplete){
-            const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
-            return res.statu(200).send({
-                msg: `El usuario se actualizo de forma correcta`, userComplete, token
+            //const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
+            return res.status(200).send({
+                msg: `El usuario se actualizo de forma correcta`, userComplete, //token
             });
         }else{
             res.status(404).send({
-                msg: `El usuario que desea actualizar con existe dentro de nuestra db`
+                msg: `El usuario que desea actualizar no existe dentro de nuestra db`
             });
         }
         
