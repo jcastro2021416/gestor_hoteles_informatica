@@ -6,9 +6,9 @@ const RoomSchema = new Schema({
         type: Number,
         required: true,
     },
-    type: {
+    typeRoom: {
         type: String,
-        enum:['single', 'double', 'twin'],
+        enum:['Individual', 'Double', 'Matrimonial', 'Standar', 'Suite'],
         required: true,
     },
     price: {
