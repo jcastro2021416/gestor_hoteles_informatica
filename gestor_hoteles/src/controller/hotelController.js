@@ -1,12 +1,9 @@
 'use strict'
 
-const Hotel = require('../model/hotelModel')
-const Room = require('../model/roomModel')
-const Event = require('../model/eventModel')
-const User = require('../model/userModel')
+const Hotel = require('../model/hotelModel');
+const User = require('../model/userModel');
 
 //-------------------------------------------------Crud hoteles ------------------------------------------------------------------
-
 const createHotel = async(req, res) => {
     const {name, description, address, admin} = req.body
 
@@ -22,7 +19,7 @@ const createHotel = async(req, res) => {
         const adminExist = await User.findById(admin);
         if(!adminExist){
             return res.status(400).json({
-                msg: 'No se encontro un usuario con este hombre',
+                msg: 'No se encontro administrado con este Id',
                 ok: false,
                 admin: adminExist,
             });
@@ -35,7 +32,7 @@ const createHotel = async(req, res) => {
         await adminExist.save()
 
         res.status(200).send({
-            ok: false,
+            ok: true,
             msg: `${name} creado correctamente`,
             hotel: newHotel
         });
@@ -48,6 +45,24 @@ const createHotel = async(req, res) => {
             msg: `No se podido crear el Hotel: ${name}`,
             error: err,
         });
+    }
+}
+//-------------------------------------------read hotel--------------------------------------------
+
+const readHotel = async(req, res) =>{
+    try{
+        const hotel = await Hotel.find();
+        if(!hotel){
+            res.status(410).send({
+                msg: 'No hay Hoteles disponibles dentro de la base de datos'
+            });
+        }else{
+            res.status(200).send({
+                hoteles_obtenidos: hotel
+            });
+        }
+    }catch(err){
+        throw new Error('Error al mostrar todos los hoteles')
     }
 }
 
@@ -74,7 +89,7 @@ const updateHotel = async(req, res) =>{
             const adminExist = await User.findById(admin);
             if(!adminExist){
                 return res.status(410).json({
-                    msg: 'El usuario admin no es existente'
+                    msg: 'El administrador no es existente'
                 });
             }   
 
@@ -102,9 +117,11 @@ const updateHotel = async(req, res) =>{
 
 const deleteHotel = async(req, res) => {
     const {id} = req.params;
+    const {name} = req.body;
+    
     try{
-        const Hotel = await Hotel.findById(id);
-        if(!hotel){
+        const hotel = await Hotel.findById(id);
+        if(!Hotel){
             if(!hotel){
                 return res.status(404).json({
                     msg: 'El hotel que desea eliminar no existe'
@@ -120,11 +137,11 @@ const deleteHotel = async(req, res) => {
         }
 
         return res.json({
-            msg: 'El hotel se a eliminado de fomra correcta'
+            msg: 'El hotel se a eliminado de forma correcta'
         })
     }catch(err){
         console.log(err);
-        res.status(500).json({msg: 'A ocurrido error al elimar el hotel'})
+        res.status(500).json({msg: `A ocurrido error al eliminar el hotel ${name}`})
     }
 }
 
@@ -133,6 +150,7 @@ const deleteHotel = async(req, res) => {
 module.exports = {
     createHotel,
     updateHotel,
+    readHotel,
     deleteHotel
 }
 
