@@ -8,13 +8,14 @@ const port = process.env.PORT; //Asignamos la varibale PORT a la constante port
 const RouterU = require('./src/routers/user.Routes')
 const RouterH = require('./src/routers/hotel.Routes')
 const RouterS = require('./src/routers/service.Routes') 
+const RouterR = require('./src/routers/room.Routes')
 connection();
 
 /*express.urlencode es un middlware que usarmos para analizar solicitudes http
 Los Middlware manejan las solicitudes y las respuestas de una aplicacion express*/
 app.use(express.urlencoded({extended: false})); 
 app.use(express.json());
-app.use('/api', RouterU, RouterH, RouterS)
+app.use('/api', RouterU, RouterH, RouterS, RouterR)
 
 app.listen(port, () => {
     console.log(`Chi esta corriendo en el puerto ${port}`)
