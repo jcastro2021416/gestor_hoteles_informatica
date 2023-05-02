@@ -2,7 +2,6 @@
 
 const Service = require('../model/serviceModel')
 const Hotel = require('../model/hotelModel')
-const User = require('../model/userModel')
 const bcrypt = require('bcrypt')
 
 //-------------------------------------Create Service--------------------------------------------
@@ -48,7 +47,6 @@ const createService = async(req, res) =>{
             });
         }
     }
-
 //--------------------------------------------list---------------------------------------------
 
 const readService = async(req, res) => {

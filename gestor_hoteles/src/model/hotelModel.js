@@ -32,10 +32,6 @@ const HotelSchema = new Schema({
         type: Date,
         default: Date.now,
     },
-    asignService:{
-        type: String,
-        require: true
-    }
     
 })
 

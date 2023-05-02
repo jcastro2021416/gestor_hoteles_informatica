@@ -20,10 +20,6 @@ const  ServiceSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Reservation'
     }],
-    // user: {
-    //     type: Schema.Types.ObjectId,
-    //     ref: 'User'
-    // }
 })
 
 module.exports = mongoose.model('Service', ServiceSchema)

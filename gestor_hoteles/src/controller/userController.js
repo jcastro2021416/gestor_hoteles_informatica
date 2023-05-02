@@ -45,7 +45,7 @@ const readUser = async(req, res) => {
     try{
         const user = await User.find();
         if(!user){
-            re.statu(410).send({
+            res.status(410).send({
                 msg: 'No hay usuario disponible dentro de la db'
             });
         }else{

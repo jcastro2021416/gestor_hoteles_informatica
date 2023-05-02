@@ -148,7 +148,7 @@ const deleteHotel = async(req, res) => {
 
 //----------------------------------------------------AsignService------------------------------------------
 
-const AsignService = async(req, res) =>{
+const asignService = async(req, res) =>{
     try{
         
         const hotel = await Hotel.findOne({hote_name: req.body.name});
@@ -184,7 +184,8 @@ module.exports = {
     createHotel,
     updateHotel,
     readHotel,
-    deleteHotel
+    deleteHotel,
+    asignService
 }
 
 
