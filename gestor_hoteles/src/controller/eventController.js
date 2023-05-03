@@ -133,11 +133,49 @@ const updateEvent = async(req, res) => {
 
 }
 
+//------------------------------------------------delete event-----------------------------------------
+
+const deleteEvent = async(req, res) => {
+    const {id} = req.params;
+    const {name} = req.body;
+    
+    try{
+
+        const event = await Event.findById(id);
+        
+        if(!event){
+            return res.status(404).json({
+                msg:   `El evento que desea eliminar, ya no es existente`
+            });
+        }
+    
+        await event.remove();
+
+        const hoteles = await Hotel.findOne({event: id});
+        if(hoteles){
+            hoteles.event = null
+            await hoteles.save();
+        }
+
+        return res.json({
+            msg: 'El evento se a eliminado de forma correcta'
+        })
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({msg: `A ocurrido error al eliminar el evento ${name}`})
+    }
+
+}
+
+
 //------------------------------------exportaciones----------------------------------------
 
 module.exports = {
     createService,
-    readEvent
+    readEvent,
+    updateEvent,
+    deleteEvent
 }
 
 
