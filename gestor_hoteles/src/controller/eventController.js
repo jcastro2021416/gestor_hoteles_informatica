@@ -7,7 +7,7 @@ const Hotel = require('../model/hotelModel');
 
 const createService = async(req, res) => {
     
-    const {name,  type, date, Hotel} = req.body
+    const {name,  type, date, hotel} = req.body
 
     try{
 
@@ -31,7 +31,7 @@ const createService = async(req, res) => {
             });
         }
 
-        const newEvent = await Event.create({name, type, date, Hotel});
+        const newEvent = await Event.create({name, type, date, hotel});
 
         hotelExist.event = newEvent._id
         await hotelExist.save()
@@ -73,6 +73,62 @@ const readEvent = async(req, res) => {
 
     }catch(err){
         throw new Error('Error al mostrar los eventos')
+    }
+
+}
+
+//--------------------------------------update event--------------------------------------
+
+const updateEvent = async(req, res) => {
+
+    const {name,  type, date, hotel} = req.bod
+    const {id} = req.params;
+
+    try{
+
+        const existEvent = await Event.findOne({name});
+
+        if(existEvent && existEvent._id != id){
+            return res.status(400).json({
+                msg: 'El nombre del servicio ya existe'
+            });
+        }
+        
+        const service_past = await Event.findById(id);
+
+        if(!service_past.hotel){
+            const hotelAnterior = await Hotel.findById(service_past.hotel);
+            hotelAnterior.event = null
+            await hotelAnterior.save();
+        }
+
+        const hotelExist = await Hotel.findById(hotel)
+        
+        if(!hotelExist){
+            return res.status(410).json({
+                msg: 'El hotel no es existente'
+            });
+        }
+
+        const eventComplete = await Event.findByIdAndUpdate(
+            id,
+            {name, type, date, hotel},
+            {new: true}
+        );
+
+        hotelExist.event = eventComplete._id
+        await hotelExist.save();
+
+        return res.status(200).send({
+            msg: `El evento ${name} se actualizo de forma exitosa`,
+            event: eventComplete
+        });
+
+    }catch(err){
+        console.error(error)
+            res.status(500).json({
+                msg: 'Error al actualizar el evento'
+            });
     }
 
 }
