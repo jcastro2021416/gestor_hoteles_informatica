@@ -52,10 +52,36 @@ const createService = async(req, res) => {
     }
 }
 
+//----------------------------------------------read event-------------------------------------------------
+
+const readEvent = async(req, res) => {
+
+    try{
+
+        const event = await Event.find();
+
+        if(!event){
+            res.status(410).send({
+                ok: false,
+                msg:`No hay eventos disponibles`
+            });
+        }else{
+            res.status(200).send({
+                eventos_obtenidos: event
+            });
+        }
+
+    }catch(err){
+        throw new Error('Error al mostrar los eventos')
+    }
+
+}
+
 //------------------------------------exportaciones----------------------------------------
 
 module.exports = {
-    createService
+    createService,
+    readEvent
 }
 
 
