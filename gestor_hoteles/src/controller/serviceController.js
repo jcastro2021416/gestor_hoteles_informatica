@@ -6,47 +6,46 @@ const bcrypt = require('bcrypt')
 
 //-------------------------------------Create Service--------------------------------------------
 
-const createService = async(req, res) =>{
-    const {name, price, hotel, reservation} = req.body;
-        try{
-            // let service = await Service.findOne({name});
-            // if(service){
-            //     return res.status(410).json({
-            //         msg: `Un servicio con este nombre ya existe`,
-            //         ok: false,
-            //         service: service,
-            //     });
-            // }
-
-            const hotelExist = await Hotel.findById(hotel);
-            if(!hotelExist){
-                return res.status(400).json({
-                    msg: `No se encontro hotel con este ID`,
-                    ok: false,
-                    hotel: hotelExist
-                });
-            }
-
-            const newService = await Service.create({name, price, hotel, reservation});
-
-            hotelExist.service = newService._id
-            await hotelExist.save();
-            
-
-            res.status(200).json({
-                msg: `El servicio  ${name} se a creado de forma correcta`,
-                ok: true,
-                service: newService,
-            });
-        }catch(err){
-            console.log(err)
-            res.status(500).json({
-                ok:false,
-                msg: 'No se a creado el servicio :(',
-                error: err,
+const createService = async(req, res)=> {
+    const {name,price , hotel, reservation} = req.body
+    try{
+        const service = await Service.findOne({name});
+        if(service){
+            return res.status(410).json({
+                msg: `Ya existe un servicio registrado con este nombre`,
+                ok: false,
+                hotel: service,
             });
         }
+        const hotelExist = await Hotel.findById(hotel);
+        if(!hotelExist){
+            return res.status(400).json({
+                msg: 'No se encontro administrado con este Id',
+                ok: false,
+                hotel: hotelExist,
+            });
+        }
+
+        const newService = await Service.create({name, price, hotel, reservation})
+
+        hotelExist.service = newService._id
+        await hotelExist.save()
+
+        res.status(200).send({
+            ok: true,
+            msg: `${name} creado correctamente`,
+            service: newService
+        });
+
+    }catch(err){
+        console.log(err)
+        res.status(510).send({
+            ok: false,
+            msg: `No se podido crear el servicio: ${name}`,
+            error: err,
+        });
     }
+}
 //--------------------------------------------list---------------------------------------------
 
 const readService = async(req, res) => {

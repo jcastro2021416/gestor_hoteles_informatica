@@ -4,7 +4,7 @@ const Room = require('../model/roomModel');
 const Hotel = require('../model/hotelModel');
 
 const createRoom = async(req, res) => {
-    const {numberRoom} = req.body;
+    const {numberRoom, typeRoom, price, hotel, reservation, available, available_To} = req.body;
     try{
         const room = await Room.findOne({numberRoom});
         if(room){
@@ -15,13 +15,24 @@ const createRoom = async(req, res) => {
             });
         }
         
-        room = new Room(req.body)
-        room = await room.save();
+        const hotelExist = await Hotel.findById(hotel);
+        if(!hotelExist){
+            return res.status(400).json({
+                msg: 'No se encontro administrado con este Id',
+                ok: false,
+                hotel: hotelExist,
+            });
+        }
+
+        const newRoom = await Room.create({numberRoom, typeRoom,price,hotel,reservation,available,available_To})
+
+        hotelExist.room = newRoom._id
+        await hotelExist.save()
 
     res.status(200).json({
         msg: `La habitacion ${numberRoom} a creado de forma correcta`,
         ok: true,
-        room: room
+        room: newRoom
     });
 
     }catch(err){
