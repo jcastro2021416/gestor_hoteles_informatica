@@ -74,22 +74,43 @@ const readRoom = async(req, res) => {
 //------------------------------------------update room----------------------------------------------------
 
 const updateRoom = async(req, res) =>{
+    
+    const {numberRoom, typeRoom, price, hotel, reservation, available, available_To} = req.body;
+    const {id} = req.params;
+    
     try{
-        const id = req.params.id
-        const roomEdit = {...req.body}
-        const roomComplete = await Room.findByIdAndUpdate(id, roomEdit, {new: true});
-        if(roomComplete){
-            return res.status(200).send({
-                msg: `La habitacion se actualizo de forma existosa`, roomComplete
-            });
-        }else{
-            res.status(404).send({
-                msg: `La habitacion que desea actualizar no existe dentro de nuestra db`
-            });
-        }
+        
+    const existRoom = await Room.findOne({numberRoom});
+    if(existRoom && existRoom._id != id){
+        return res.staus(400).json({
+            msg: `El numero de la habitacion ya existe`
+        });
+    }
+    const room_past = await Room.findById(id);
+
+    if(!room_past.hotel){
+        const hotelAnterior = await Room.findById(room_past.hotel)
+        hotelAnterior.room = null
+        await hotelAnterior.save();
+    }
+    const roomComplete = await Room.findByIdAndUpdate(
+        id,
+        {numberRoom, typeRoom, price, hotel, reservation, available, available_To},
+        {new: true}
+        );
+
+        hotelExist.room = roomComplete._id
+        await hotelExist.save();
+        
+        return res.status(200).send({
+            msg: `La habitacion de actualizo de forma correcta`
+        })
+
     }catch(err){
         console.log(err)
-        throw new Error(err)
+        res.status(201).json({
+            msg:`Error al acutaliza los datos de la habitacion`
+        })
     }
 }
 
@@ -106,6 +127,13 @@ const deleteRoom = async(req, res) => {
             });
         }
         await room.remove();
+
+        const hotel = await Hotel.findOne({hote: id})
+
+        if(hotel){
+            hotel.room = null
+            await hotel.save();
+        }
 
         res.status(410).json({
             msg: `La habitacion se elimino de forma correcta`, room: room
