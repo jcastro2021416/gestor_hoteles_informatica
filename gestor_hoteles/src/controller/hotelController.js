@@ -153,8 +153,7 @@ module.exports = {
     createHotel,
     updateHotel,
     readHotel,
-    deleteHotel,
-    asignService
+    deleteHotel
 }
 
 
