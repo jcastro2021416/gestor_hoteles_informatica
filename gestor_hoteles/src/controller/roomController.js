@@ -3,6 +3,8 @@
 const Room = require('../model/roomModel');
 const Hotel = require('../model/hotelModel');
 
+//--------------------------------------create room------------------------------------------------------
+
 const createRoom = async(req, res) => {
     const {numberRoom, typeRoom, price, hotel, reservation, available, available_To} = req.body;
     try{
@@ -117,10 +119,13 @@ const updateRoom = async(req, res) =>{
 //--------------------------------------------- delete room --------------------------------------------
 
 const deleteRoom = async(req, res) => {
-    try{
+    
+    const roomId = req.params.id;
+    const {name} = req.body;
 
-        const roomId = req.params.id
+    try{
         const room = await Room.findById(roomId)
+        
         if(!room){
             return res.status(404).json({
                 msg: `No se encontro esta habitacion`
@@ -135,12 +140,14 @@ const deleteRoom = async(req, res) => {
             await hotel.save();
         }
 
-        res.status(410).json({
+        return res.status(410).json({
             msg: `La habitacion se elimino de forma correcta`, room: room
         })
     }catch(err){
         console.log(err)
-        throw new err
+        res.status(500).json({
+            msg: `A ocurrido error al eliminar el hotel ${name}`
+        })
     }
 }
 
