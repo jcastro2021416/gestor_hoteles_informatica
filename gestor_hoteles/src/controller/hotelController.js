@@ -146,37 +146,6 @@ const deleteHotel = async(req, res) => {
     }
 }
 
-//----------------------------------------------------AsignService------------------------------------------
-
-const asignService = async(req, res) =>{
-    try{
-        
-        const hotel = await Hotel.findOne({hote_name: req.body.name});
-        const service = await Service.findOne({service_name: req.body.name});
-        if(!hotel){
-            return res.status(404).json({
-                error: `No se encontro el hotel`
-            });
-        }
-        if(!service){
-            return res.status(404).json({
-                error: `No se a encontrado el servicio`
-            });
-        }
-        if(hotel.service.incluides(service._id)){
-            return res.status(404).json({
-                error: `El hotel ya ha sido asignado a este servicio`
-            });
-        }
-        hotel.service.push(service._id);
-        await hotel.save();
-        res.status(201).json(hotel)
-
-    }catch(err){
-        console.log(err)
-        throw new Error(err)
-    }
-}
 
 //-------------------------------------exportaciones del COntroller------------------------------------
 
