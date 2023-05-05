@@ -68,27 +68,56 @@ const readService = async(req, res) => {
 //--------------------------------------------update service---------------------------------------------
 
 const updateService = async(req, res) => {
+
+    const {name,price , hotel, reservation} = req.body;
+    const {id} = req.body;
+
     try{
-        const id = req.params.id;
-        const serviceEdit = {...req.body}
-        serviceEdit.password = serviceEdit.password
-        ? bcrypt.hashSync(serviceEdit.password, bcrypt.genSaltSync())
-        : serviceEdit.password;
-        const serviceComplete = await Service.findByIdAndUpdate(id, serviceEdit, {new: true});
-        if(serviceComplete){
-            return res.status(200).json({
-                msg: `El servicio se actualizo de forma correcta`, serviceComplete, 
-                ok: true
-            });
-        }else{
-            res.status(404).json({
-                msg: `El servicio que desea actualizar, ya no se encuentra existe`,
-                ok: false
+       
+        const existService = await Service.findOne({name})
+        if(existService && existService._id !=id){
+            return res.status(404).json({
+                msg: 'El nombre del servicio ya existe'
             });
         }
+
+        const service_pasado = await Service.findById(id);
+
+        if(!service_pasado.hotel){
+            const hotelAnterior = await Hotel.findById(service_pasado)
+            hotelAnterior.service = null
+            await hotelAnterior.save();
+        }
+
+        const hotelExist = await Hotel.findById(hotel)
+
+        if(!hotelExist){
+            return res.status(410).json({
+                msg: 'El servicio no se encuntra existente'
+            });
+        }
+
+        const serviceComplete = await Service.findByIdAndUpdate(
+            id,
+            {name,price , hotel, reservation},
+            {new: true}
+        );
+
+        hotelExist.service = serviceComplete._id
+        await hotelExist.save();
+        
+        return res.status(200).json({
+            msg: 'El servicio se actualizo de forma correcta',
+            servicio: serviceComplete
+        });
+
+    
     }catch(err){
-        console.log(err)
-        throw new Error(err)
+        console.log(err);
+        re.status(500).json({
+            msg: 'Error al actualizar el servicio'
+        });
+        throw new Error(err);
     }
 }
 
@@ -111,7 +140,7 @@ const deleteService = async(req ,res) => {
         }
         
     }catch(err){
-        console.log(err)
+        console.log(err);
         throw new Error(err);
     }
 }

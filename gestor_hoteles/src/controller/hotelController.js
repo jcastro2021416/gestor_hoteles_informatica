@@ -2,7 +2,6 @@
 
 const Hotel = require('../model/hotelModel');
 const User = require('../model/userModel');
-const Service = require('../model/serviceModel')
 
 //-------------------------------------------------Crud hoteles ------------------------------------------------------------------
 const createHotel = async(req, res) => {
