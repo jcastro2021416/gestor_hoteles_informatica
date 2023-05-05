@@ -125,7 +125,7 @@ const updateEvent = async(req, res) => {
         });
 
     }catch(err){
-        console.error(error)
+        console.error(err)
             res.status(500).json({
                 msg: 'Error al actualizar el evento'
             });
