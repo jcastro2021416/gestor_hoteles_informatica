@@ -93,7 +93,7 @@ const updateService = async(req, res) => {
 
         if(!hotelExist){
             return res.status(410).json({
-                msg: 'El servicio no se encuntra existente'
+                msg: 'El hotel no se encuntra existente'
             });
         }
 

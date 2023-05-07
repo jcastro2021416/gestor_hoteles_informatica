@@ -4,16 +4,16 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const ReservationSchema = new Schema({
-    user: {
+    user: [{
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true,
-    },
-    room: {
+    }],
+    room: [{
         type: Schema.Types.ObjectId,
         ref: 'Room',
         required: true,
-    },
+    }],
     checkIn: {
         type: Date,
         required: true
