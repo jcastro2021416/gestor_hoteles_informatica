@@ -99,18 +99,18 @@ const readReaservation = async(req, res) => {
 }
 
 //------------------------------------------------------------------update reservation------------------------------------------
-
+/*LA funcion update Reservation esta pendiente por 
+problemas que no se lee el .user de la linea 112*/
 const updateReservation = async(req, res) => {
 
     const {user, room, checkIn, checkOut, services, totalPrice, isActive} = req.body;
-    const {id} = req.body;
-    
+    const {id} = req.params;
+
     try{
 
-        const reservation_pasado = await Reservation.findById(id);
-
+        const reservation_pasado = await Reservation.findById(id)
         if(!reservation_pasado.user){
-            const userAnterior = await User.findById(reservation_pasado)
+            const userAnterior = await User.findById(reservation_pasado.user)
             userAnterior.reservations = null
             await userAnterior.save();
         }
@@ -164,7 +164,7 @@ const updateReservation = async(req, res) => {
 
     }catch(err){
         console.log(err);
-        re.status(500).json({
+        res.status(500).json({
             msg: 'Error al actualizar la reservacion :('
         });
         throw new Error(err);
@@ -176,7 +176,7 @@ const updateReservation = async(req, res) => {
 
 const deleteReservation = async(req, res) => {
 
-    const {id, name} = req.params;
+    const {id} = req.params;
     
     try{
 

@@ -14,7 +14,7 @@ const createService = async(req, res)=> {
             return res.status(410).json({
                 msg: `Ya existe un servicio registrado con este nombre`,
                 ok: false,
-                hotel: service,
+                service: service,
             });
         }
         const hotelExist = await Hotel.findById(hotel);
@@ -93,7 +93,7 @@ const updateService = async(req, res) => {
 
         if(!hotelExist){
             return res.status(410).json({
-                msg: 'El hotel no se encuntra existente'
+                msg: 'El servicio no se encuntra existente'
             });
         }
 
@@ -114,7 +114,7 @@ const updateService = async(req, res) => {
     
     }catch(err){
         console.log(err);
-        re.status(500).json({
+        res.status(500).json({
             msg: 'Error al actualizar el servicio'
         });
         throw new Error(err);
