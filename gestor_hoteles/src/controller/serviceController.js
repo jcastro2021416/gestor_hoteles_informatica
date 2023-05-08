@@ -2,7 +2,6 @@
 
 const Service = require('../model/serviceModel')
 const Hotel = require('../model/hotelModel')
-const bcrypt = require('bcrypt')
 
 //-------------------------------------Create Service--------------------------------------------
 
@@ -20,7 +19,7 @@ const createService = async(req, res)=> {
         const hotelExist = await Hotel.findById(hotel);
         if(!hotelExist){
             return res.status(400).json({
-                msg: 'No se encontro administrado con este Id',
+                msg: 'No se encontro hotel con este Id',
                 ok: false,
                 hotel: hotelExist,
             });
@@ -70,7 +69,7 @@ const readService = async(req, res) => {
 const updateService = async(req, res) => {
 
     const {name,price , hotel, reservation} = req.body;
-    const {id} = req.body;
+    const {id} = req.params
 
     try{
        
@@ -84,7 +83,7 @@ const updateService = async(req, res) => {
         const service_pasado = await Service.findById(id);
 
         if(!service_pasado.hotel){
-            const hotelAnterior = await Hotel.findById(service_pasado)
+            const hotelAnterior = await Hotel.findById(service_pasado.hotel)
             hotelAnterior.service = null
             await hotelAnterior.save();
         }
@@ -93,7 +92,7 @@ const updateService = async(req, res) => {
 
         if(!hotelExist){
             return res.status(410).json({
-                msg: 'El servicio no se encuntra existente'
+                msg: 'El hotel no se encuentra existente'
             });
         }
 
