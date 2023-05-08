@@ -6,35 +6,42 @@ const bcrypt = require('bcrypt')
 
 //-------------------------------------Create Usuario--------------------------------------
 const createUser = async(req, res) => {
-    const {name, email, password} = req.body;
-    try{
-        let usuario = await User.findOne({email});
-        if(usuario){
-            return res.status(400).send({
-                msg: "Un usuario ya se a registrado con este correo electronico",
-                ok: false,
+    // Unicamente los usuarios de la aplicación tiene permiso hacia el Crud de usuarios
+    if (req.usuario.rol === 'ADMIN') {
+        const {name, email, password} = req.body;
+        try{
+            let usuario = await User.findOne({email});
+            if(usuario){
+                return res.status(400).send({
+                    msg: "Un usuario ya se a registrado con este correo electronico",
+                    ok: false,
+                    usuario: usuario,
+                });
+            }
+            usuario = new User(req.body)
+
+            const salt = bcrypt.genSaltSync()
+            usuario.password = bcrypt.hashSync(password, salt);
+
+            usuario = await usuario.save();
+
+            res.status(210).send({
+                msg: `El usuario ${name} se creo de forma correcta`,
+                ok: true,
                 usuario: usuario,
             });
+
+        }catch(err){
+            console.log(err)
+            res.status(510).send({
+                ok: false,
+                msg: `No se podido crear el usuario: ${name}`,
+                error: err,
+            })
         }
-        usuario = new User(req.body)
-
-        const salt = bcrypt.genSaltSync()
-        usuario.password = bcrypt.hashSync(password, salt);
-
-        usuario = await usuario.save();
-
-        res.status(210).send({
-            msg: `El usuario ${name} se creo de forma correcta`,
-            ok: true,
-            usuario: usuario,
-        });
-
-    }catch(err){
-        console.log(err)
-        res.status(510).send({
-            ok: false,
-            msg: `No se podido crear el usuario: ${name}`,
-            error: err,
+    }else{
+        res.status(200).send({
+            msg: 'No tienes permisos para realizar esta operación. ;D'
         })
     }
 }
@@ -42,19 +49,28 @@ const createUser = async(req, res) => {
 //----------------------------------------------------read usuario -------------------------------------------------------
 
 const readUser = async(req, res) => {
-    try{
-        const user = await User.find();
-        if(!user){
-            res.status(410).send({
-                msg: 'No hay usuario disponible dentro de la db'
-            });
-        }else{
-            res.status(200).send({usuarios_obtenidos: user});
+    if (req.user.rol === 'ADMIN') {
+        try{
+            const user = await User.find();
+            if(!user){
+                res.status(410).send({
+                    msg: 'No hay usuario disponible dentro de la db'
+                });
+            }else{
+                res.status(200).send({usuarios_obtenidos: user});
+            }
+    
+        }catch(err){
+            throw new Error('Error al listar usuarios');
         }
-
-    }catch(err){
-        throw new Error('Error al listar usuarios');
+        
+    } else {
+        res.status(200).send({
+            msg: 'No teienes permisos para realizar esta acción ;D'
+        })
     }
+
+    
 }
 
 //------------------------------------------------------update usuarios--------------------------------------------------
