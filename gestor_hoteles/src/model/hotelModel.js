@@ -24,10 +24,10 @@ const HotelSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Service',
     }],
-    admin: [{
+    admin: {
         type: Schema.Types.ObjectId,
         ref: 'User',
-    }],
+    },
     createAdmin: {
         type: Date,
         default: Date.now,

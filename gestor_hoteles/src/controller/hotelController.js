@@ -68,48 +68,59 @@ const readHotel = async(req, res) =>{
 
 //----------------------------------------update hotel------------------------------------------------
 
-const updateHotel = async(req, res) =>{
-        const {name, description, address, admin} = req.body
-        const {id} = req.params;
-        try{
-            const existHotel = await Hotel.findOne({name});
+const updateHotel = async(req, res) => {
+    const {name, description, address, admin} = req.body;
+    const {id} = req.params;
 
-            if(existHotel && existHotel._id != id){
-                return res.status(400).json({
-                    msg: 'El nombre del hotel ya existe'
-                });
-            }
-            const hotel_pasado = await Hotel.findById(id);
+    try{
+        //Verificar si el hotel ya existe 
+        const hotelExist = await Hotel.findOne({name});
 
-            if(!hotel_pasado.admin){
-                const admistradorAnterior = await User.findById(hotel_pasado.admin)
-                admistradorAnterior.hotel = null
-                await admistradorAnterior.save();
-            }
+        if(hotelExist && hotelExist._id != id){
+            return res.status(400).json({
+                msg: 'El nombre ya existe'
+            })
+        }
+
+        // Obtener el hotel anterior
+        const hotelAnterior = await Hotel.findById(id);
+
+        // Buscar y actualizar el admin anterior
+        if (hotelAnterior.admin) {
+        const adminAnterior = await User.findById(hotelAnterior.admin);
+        adminAnterior.hotel = null;
+        await adminAnterior.save();
+        }
+
+            // Verificar si el usuario a cambiar existe  
             const adminExist = await User.findById(admin);
+
             if(!adminExist){
-                return res.status(410).json({
-                    msg: 'El administrador no es existente'
-                });
-            }   
+                return res.status(400).json({
+                    msg: 'El usuario admin no existe'
+                })
+            }
 
-            const hotelComplete = await Hotel.findByIdAndUpdate(
-                id,
-                {name, description, address, admin},
+            //Actualizar los datos del hotel 
+            const hotelActualizado = await Hotel.findByIdAndUpdate(
+                id, 
+                {name, description, address, admin}, 
                 {new: true}
-                );
+            );
 
-                adminExist.hotel = hotelComplete._id
-                await adminExist.save();
-                return res.status(200).send({
-                    msg: 'Hotel actualizado de forma exitosa :)',
-                    hotel: hotelComplete
-                });
-        }catch(error){
-            console.error(error)
+            // Actualizar el hotel en la lista de hoteles del usuario admin 
+            adminExist.hotel = hotelActualizado._id;
+            await adminExist.save();
+
+            return res.status(200).send({
+                msg: 'Hotel actualizado correctamente', 
+                hotel: hotelActualizado
+            });
+        }catch(err){
+            console.error(err)
             res.status(500).json({
                 msg: 'Error al actualizar el hotel'
-            })
+            });
         }
     }
 
