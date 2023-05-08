@@ -6,7 +6,7 @@ const Hotel = require('../model/hotelModel')
 //-------------------------------------Create Service--------------------------------------------
 
 const createService = async(req, res)=> {
-    const {name,price , hotel, reservation} = req.body
+    const {name,price , hotel, reservations} = req.body
     try{
         const service = await Service.findOne({name});
         if(service){
@@ -25,7 +25,8 @@ const createService = async(req, res)=> {
             });
         }
 
-        const newService = await Service.create({name, price, hotel, reservation})
+        const newService = await Service.create({name, price, hotel, reservations
+        })
 
         hotelExist.service = newService._id
         await hotelExist.save()
@@ -68,7 +69,7 @@ const readService = async(req, res) => {
 
 const updateService = async(req, res) => {
 
-    const {name,price , hotel, reservation} = req.body;
+    const {name,price , hotel, reservations} = req.body;
     const {id} = req.params
 
     try{
@@ -98,7 +99,7 @@ const updateService = async(req, res) => {
 
         const serviceComplete = await Service.findByIdAndUpdate(
             id,
-            {name,price , hotel, reservation},
+            {name,price , hotel, reservations},
             {new: true}
         );
 
