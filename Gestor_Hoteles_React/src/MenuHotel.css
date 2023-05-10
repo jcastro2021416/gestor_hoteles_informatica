@@ -23,14 +23,57 @@
     list-style: none;
   }
   
-  .navbar-links li {
+.navbar-links li {
     margin: 0 10px;
   }
   
-  .navbar-links a {
+.navbar-links a {
     color: #fff;
     text-decoration: none;
-  }
+  } 
+
+  /* para el menu deepleglable */
+.menuv{
+    position: absolute;
+    display: none;
+    list-style: none;
+    width: 200px;
+    background-color: white;
+    z-index:999; /* Valor alto para asegurar que el menú esté por encima del slider */
+}
+
+.menuh li:hover .menuv{
+    display: block;
+}
+
+.menuv li:hover{
+    background-color: #d1c4b7 ;
+}
+
+.menuv li a{
+    display: block;
+    color:black;
+    padding: 15px 15px 15px 15px;
+    text-decoration: none;
+}
+
+.menuh{
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  position:  relative;
+}
+
+.menuh > li > a{
+  display: block;
+  padding: 15px 20px;
+  text-decoration: none;
+}
+
+.menuh>li:hover{
+  background-color:  #656363 ;
+} 
+
 
 /* Responsive */
 @media screen and (min-width: 768px) {
@@ -101,6 +144,8 @@
     align-items: center;
     height: 100vh; /* altura en porcentaje de la pantalla */
     margin-top: 2%;
+    z-index:1;
+
   }
   
   .slider {
@@ -184,4 +229,4 @@
     }
   }
   
-  
+ 

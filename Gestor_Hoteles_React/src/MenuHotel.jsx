@@ -13,8 +13,17 @@ function MenuHotel() {
           </a>
         </div>
         <ul className="navbar-links">
-          <li><a href="#">Crea una cuenta</a></li>
-          <li><a href="#">Iniciar sesión</a></li>
+        <ul className="menuh">
+        <li><a href="#">Menú</a>
+                <ul className="menuv">
+                    <li><a href="#">Habitaciónes</a></li>
+                    <li><a href="#">Eventos</a></li>
+                    <li><a href="#">Servicio</a></li>
+                    <li><a href="#">Mis viajes</a></li>
+                </ul>
+            </li>
+          <li className="linkhover"><a href="#">Iniciar sesión</a></li>
+        </ul>
         </ul>
       </nav>
 
