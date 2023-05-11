@@ -2,10 +2,13 @@
 
 const Hotel = require('../model/hotelModel');
 const User = require('../model/userModel');
+const Room = require('../model/roomModel');
+const Event = require('../model/eventModel');
+const Service = require('../model/serviceModel');
 
 //-------------------------------------------------Crud hoteles ------------------------------------------------------------------
 const createHotel = async(req, res) => {
-    const {name, description, address, admin} = req.body
+    const {name,address, admin} = req.body
 
     try{
         const hotel = await Hotel.findOne({name});
@@ -16,6 +19,7 @@ const createHotel = async(req, res) => {
                 hotel: hotel,
             });
         }
+        
         const adminExist = await User.findById(admin);
         if(!adminExist){
             return res.status(400).json({
@@ -24,8 +28,35 @@ const createHotel = async(req, res) => {
                 admin: adminExist,
             });
         }
+
+        /*const roomExist = await Room.findById(room);
+        if(!roomExist){
+            return res.status(400).json({
+                msg: 'No se encontro un administrador con este Id',
+                ok: false,
+                room: roomExist,
+            });
+        }
+
+        const eventExist = await Event.findById(event);
+        if(!eventExist){
+            return res.status(400).json({
+                msg: `No se encontro evento con este Id`,
+                ok: false,
+                event: eventExist,
+            });
+        }
+
+        const serviceExist = await Service.findById(service);
+        if(!serviceExist){
+            return res.status(400).json({
+                msg: `No se encontro service con este Id`,
+                ok: false,
+                service: serviceExist,
+            });
+        }*/
         //creacion nuevo hotel
-        const newHotel = await Hotel.create({name, description, address, admin})
+        const newHotel = await Hotel.create({name,address, admin})
 
         //Agreagar
         adminExist.hotel = newHotel._id
