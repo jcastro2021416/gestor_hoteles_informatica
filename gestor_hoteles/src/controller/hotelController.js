@@ -75,7 +75,7 @@ const updateHotel = async(req, res) => {
     try{
         //Verificar si el hotel ya existe 
         const hotelExist = await Hotel.findOne({name});
-
+        
         if(hotelExist && hotelExist._id != id){
             return res.status(400).json({
                 msg: 'El nombre ya existe'
@@ -86,7 +86,7 @@ const updateHotel = async(req, res) => {
         const hotelAnterior = await Hotel.findById(id);
 
         // Buscar y actualizar el admin anterior
-        if (hotelAnterior.admin) {
+        if (hotelAnterior && hotelAnterior.admin) {
         const adminAnterior = await User.findById(hotelAnterior.admin);
         adminAnterior.hotel = null;
         await adminAnterior.save();
@@ -132,7 +132,7 @@ const deleteHotel = async(req, res) => {
     
     try{
         const hotel = await Hotel.findById(id);
-        if(!Hotel){
+        if(!hotel){
             if(!hotel){
                 return res.status(404).json({
                     msg: 'El hotel que desea eliminar no existe'
