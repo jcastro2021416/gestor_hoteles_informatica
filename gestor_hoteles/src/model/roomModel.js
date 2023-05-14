@@ -15,11 +15,11 @@ const RoomSchema = new Schema({
         type: Number,
         required: true,
     },
-    hotel: [{
+    hotel: {
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
         required: true,
-    }]
+    }
 ,
     reservations: [{
         type: Schema.Types.ObjectId,

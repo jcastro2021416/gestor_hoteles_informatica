@@ -154,7 +154,7 @@ const deleteRoom = async(req, res) => {
 //--------------------------------------exportaciones-------------------------------------------
 
 module.exports = {
-    createRoom,
+    agregarRoom,
     readRoom,
     updateRoom,
     deleteRoom
