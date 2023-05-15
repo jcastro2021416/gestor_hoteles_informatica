@@ -5,7 +5,7 @@ const Hotel = require('../model/hotelModel');
 
 //--------------------------------------create room------------------------------------------------------
 
-const createRoom = async(req, res) => {
+const agregarRoom = async(req, res) => {
     const {numberRoom, typeRoom, price, hotel, reservation, available, available_To} = req.body;
     try{
         const room = await Room.findOne({numberRoom});
