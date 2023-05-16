@@ -7,7 +7,6 @@ const bcrypt = require('bcrypt')
 //-------------------------------------Create Usuario--------------------------------------
 const createUser = async(req, res) => {
     // Unicamente los usuarios de la aplicación tiene permiso hacia el Crud de usuarios
-    if (req.usuario.rol === 'ADMIN') {
         const {name, email, password} = req.body;
         try{
             let usuario = await User.findOne({email});
@@ -39,11 +38,7 @@ const createUser = async(req, res) => {
                 error: err,
             })
         }
-    }else{
-        res.status(200).send({
-            msg: 'No tienes permisos para realizar esta operación. ;D'
-        })
-    }
+    
 }
 
 //----------------------------------------------------read usuario -------------------------------------------------------
@@ -66,7 +61,7 @@ const readUser = async(req, res) => {
         
     } else {
         res.status(200).send({
-            msg: 'No teienes permisos para realizar esta acción ;D'
+            msg: 'No tienes permisos para realizar esta acción ;D'
         })
     }
 
@@ -77,14 +72,34 @@ const readUser = async(req, res) => {
 
 const updateUser = async(req, res) => {
     try{
-        const id = req.params.id
+        let id;
+
+        //Verifica que el usuario que intenta editar sea un Admin
+        if (req.user.rol === 'ADMIN') {
+            id = req.body.idUserEdit
+
+            let roleEdit = await User.findById(id);
+
+            if (roleEdit.rol == 'ADMIN') {
+                return res.status(400).send({
+                    ok: false,
+                    msg:'No puedes editar a otros usuarios de rol ADMIN'
+                })
+            }
+
+        } else {
+            //Si no es un admin unicamente podra editar su perfil
+            id = req.userDifferent._id;
+        }
         const userEdit = {...req.body}
+        //Encriptación de la contraseña
         userEdit.password = userEdit .password
         ? bcrypt.hashSync(userEdit.password, bcrypt.genSaltSync())
         : userEdit.password;
+
         const userComplete = await User.findByIdAndUpdate(id, userEdit, {new: true});
         if(userComplete){
-            //const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
+            const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
             return res.status(200).send({
                 msg: `El usuario se actualizo de forma correcta`, userComplete, //token
             });
