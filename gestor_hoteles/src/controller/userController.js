@@ -101,7 +101,7 @@ const updateUser = async(req, res) => {
         if(userComplete){
             const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
             return res.status(200).send({
-                msg: `El usuario se actualizo de forma correcta`, userComplete, //token
+                msg: `El usuario se actualizo de forma correcta`, userComplete, token,
             });
         }else{
             res.status(404).send({
@@ -117,12 +117,29 @@ const updateUser = async(req, res) => {
 //------------------------------------------------------delete usuarios--------------------------------------------------
 
 const deleteUser = async(req, res) => {
+    let id;
     try{
-        const userId = req.params.id
-        const client = await User.findById(userId);
-        if(!client){
-            return res.status(404).json({msg: 'El cliente no se a encontrado'})
-        }
+        if (req.user.rol === 'ADMIN') {
+            id = req.body.idUserRemove;
+
+            const client = await User.findById(id);
+            if(!client){
+                return res.status(404).json({msg: 'El cliente no se a encontrado'})
+            }
+            //Mira si el usuario que se quiere eliminar no sea un 
+            if (client.rol == 'ADMIN') {
+                return res.status(400).send({
+                    ok: false,
+                    msg: 'No puedes editar un usario que sea admin'
+                });
+            }
+
+        } else {
+            //En caso que no sea el admin de la aplicación hara que él usuario logueado elimine la cuenta
+            id = req.user._id;
+        }     
+        
+        
         await client.remove();
         
         res.status(410).json({
