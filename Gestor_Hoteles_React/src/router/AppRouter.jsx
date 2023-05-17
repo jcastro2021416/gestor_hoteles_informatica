@@ -7,9 +7,9 @@ export const AppRouter = () => {
   return (
     <>
     {/* {isUserAuthenticated() &&<NavBar></NavBar>} */}
-    <NavBar>
+    
       
-    </NavBar>
+    <NavBar/>
     <Routes>
     <Route path="habitaciones" element={<Habitaciones/>} />
 

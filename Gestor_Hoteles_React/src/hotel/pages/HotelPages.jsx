@@ -1,5 +1,5 @@
 import React from 'react'
-import './HarmonyHouse.css'
+import './css/HarmonyHouse.css'
 
 export const HotelPages = () => {
   return (

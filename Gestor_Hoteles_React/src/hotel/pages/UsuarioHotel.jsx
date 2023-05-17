@@ -1,6 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { listUserHotApi } from '../api/UserHotelApi';
+
 
 export const UsuarioHotel = () => {
+    const [User,setUsers] = useState([]);
+
+    const reload = async()=>{
+        const result = await listUserHotApi();
+        setUsers(result);
+    }
+    
   return (
     <>
     <div className="contenedorUsu">
