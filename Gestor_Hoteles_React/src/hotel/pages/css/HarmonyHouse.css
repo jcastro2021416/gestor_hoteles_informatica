@@ -1,0 +1,106 @@
+/* 
+  /* Slider  */
+  .slider_conteiner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* altura en porcentaje de la pantalla */
+    margin-top: 2%;
+    z-index:1;
+
+  }
+  
+  .slider {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-image: url(../Img/Habitacion1.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    animation:animate 10s infinite;
+  }
+  
+  /* Darle animacion a slider con keyframes  */
+  @keyframes animate{
+    20% {
+      background-image: url(../Img/Habitacion1.jpg);
+      background-size: cover;
+    }
+    40% {
+      background-image: url(../Img/Habitacion3.jpg);
+      background-size: cover;
+    }
+    60% {
+      background-image: url(../Img/Habitacion1.jpg);
+      background-size: cover;
+    }
+    80% {
+      background-image: url(../Img/Habitacion2.jpg);
+      background-size: cover;
+    }
+  }
+  /* Para que sea responsive  */
+  @media (max-width: 768px) {
+    .slider_conteiner {
+      height: 50vh;
+    }
+  }
+/* Csss de la lista de Usuarios  */
+.contenedorUsu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+}
+
+  
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+  
+.table th, .table td {
+    padding: 20px;
+    text-align: left;
+    border-bottom: 2px solid #141c24;
+  }
+  
+.table th {
+    background-color: #f2f2f2;
+}
+  
+.btn {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+  
+.btn-danger {
+    background-color: #db3443 ;
+    color: white;
+}
+
+.btn:hover {
+  opacity: 0.7;
+}
+
+.btn-warning {
+    background-color:  #fbc304 ;
+    color: black;
+}
+  
+.btn-success {
+    background-color:  #1c8454 ;
+    color: white;
+}
+  
+.margin-button {
+    margin-right: 5px;
+}
+
