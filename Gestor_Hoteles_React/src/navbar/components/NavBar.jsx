@@ -15,7 +15,7 @@ export const NavBar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link className="navbar-brand" to="/">
+        <Link className="" to="/">
           
             <img src="./src/Img/LogoHotel2.1.png" alt="" />
           

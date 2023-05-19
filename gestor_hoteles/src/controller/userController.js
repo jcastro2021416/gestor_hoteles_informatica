@@ -4,6 +4,26 @@ const { generateJWT } = require('../helpers/create-jwt');
 const User = require('../model/userModel')
 const bcrypt = require('bcrypt')
 
+
+//funcion para crear un usuario por defecto
+// const adminApp = async (req, res) => {
+//     try {
+//       let user = new User();
+//       user.name = "ElAdm";
+//       user.email = "ElAdmin@gmail.com";
+//       user.password = "123456";
+//       user.rol = "ADMIN";
+//       const userEncontrado = await User.findOne({ email: user.email });
+//       if (userEncontrado) return console.log("El administrador está listo");
+//       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
+//       user = await user.save();
+//       if (!user) return console.log("El administrador no está listo!");
+//       return console.log("El administrador está listo!");
+//     } catch (err) {
+//       throw new Error(err);
+//     }
+// };
+
 //-------------------------------------Create Usuario--------------------------------------
 const createUser = async(req, res) => {
     // Unicamente los usuarios de la aplicación tiene permiso hacia el Crud de usuarios
@@ -185,6 +205,7 @@ const loginUser = async(req, res)=>{
 //--------------------------------------------------exportaciones de modulos------------------------------------------------------
 
 module.exports = {
+    // adminApp,
     createUser,
     readUser,
     updateUser,
