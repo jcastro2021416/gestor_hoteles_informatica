@@ -13,8 +13,8 @@ export const NavBar = () => {
   }
   {/* Parte del encabezado del menu  */}
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
+    <nav className="navbarHOtel">
+      <div className="navbar-logoHote">
         <Link className="" to="/">
           
             <img src="./src/Img/LogoHotel2.1.png" alt="" />
@@ -22,7 +22,7 @@ export const NavBar = () => {
         </Link>
       </div>
 
-      <ul className="navbar-links">
+      <ul className="navbar-linksHOte">
         <ul className="menuh">
           <li>
             <NavLink
@@ -76,18 +76,18 @@ export const NavBar = () => {
             </NavLink>
           </li>
 
-         
-        <li>
-          <span>NameDelUsuario</span>
-        </li>
-
-
-
-        
-          <button className="nav-link btn" onClick={onLogout}>
+          <li>
+            <NavLink
+              className={({ isActive }) => `nav-item nav-link ${isActive ? 'active' : ''}`}
+              to="/datosUsuario"
+            >
+              Usuario
+            </NavLink>
+          </li>
+        <br />
+          <button className="nav-linkHOt btnHOte" onClick={onLogout}>
             Login
           </button>
-  
         </ul>
       </ul>
     </nav>

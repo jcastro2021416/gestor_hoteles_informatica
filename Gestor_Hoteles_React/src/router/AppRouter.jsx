@@ -1,6 +1,6 @@
 import {Navigate,Route,Routes} from "react-router-dom";
 
-import { HotelPages,Habitaciones, UsuarioHotel, ServiciosHotel,Factura } from "../hotel";
+import { HotelPages,Habitaciones, UsuarioHotel, ServiciosHotel,Factura, VistaUsuario } from "../hotel";
 import { LoginHotel } from "../auth";
 import { NavBar } from "../navbar";
 import { Recerva } from "../hotel/pages/Recerva";
@@ -26,6 +26,8 @@ export const AppRouter = () => {
         <Route path="login" element={<LoginHotel/>} />
 
         <Route path="factura" element={<Factura/>} /> 
+
+        <Route path="datosUsuario" element={<VistaUsuario/>} />
 
 
         <Route path="/*" element={<Navigate to="/eventos"/>} />
