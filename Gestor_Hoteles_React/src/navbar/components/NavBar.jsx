@@ -59,10 +59,30 @@ export const NavBar = () => {
               Usuarios
             </NavLink>
           </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => `nav-item nav-link ${isActive ? 'active' : ''}`}
+              to="/recerva"
+            >
+              Recerva
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) => `nav-item nav-link ${isActive ? 'active' : ''}`}
+              to="/factura"
+            >
+              Factura
+            </NavLink>
+          </li>
+
          
         <li>
           <span>NameDelUsuario</span>
         </li>
+
+
+
         
           <button className="nav-link btn" onClick={onLogout}>
             Login
