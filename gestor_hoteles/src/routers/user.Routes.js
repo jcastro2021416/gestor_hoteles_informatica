@@ -2,7 +2,10 @@
 
 const {Router} = require('express'); //Contiene metodo http
 const { createUser, readUser, updateUser, deleteUser } = require('../controller/userController');
+<<<<<<< HEAD
 const { asignService } = require('../controller/hotelController');
+=======
+>>>>>>> master
 const api = Router();
 
 api.post('/create-user', createUser);

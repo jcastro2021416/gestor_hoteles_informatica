@@ -45,11 +45,19 @@ const readUser = async(req, res) => {
     try{
         const user = await User.find();
         if(!user){
+<<<<<<< HEAD
             res.status(410).send({
                 msg: 'No hay usuario disponible dentro de la db'
             });
         }else{
             res.status(200).send({usuarios_obtenidos: user});
+=======
+            re.statu(410).send({
+                msg: 'No hay usuario disponible dentro de la db'
+            });
+        }else{
+            res.status(200).send({alumno_obtenidos: user});
+>>>>>>> master
         }
 
     }catch(err){
@@ -68,6 +76,7 @@ const updateUser = async(req, res) => {
         : userEdit.password;
         const userComplete = await User.findByIdAndUpdate(id, userEdit, {new: true});
         if(userComplete){
+<<<<<<< HEAD
             //const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
             return res.status(200).send({
                 msg: `El usuario se actualizo de forma correcta`, userComplete, //token
@@ -75,6 +84,15 @@ const updateUser = async(req, res) => {
         }else{
             res.status(404).send({
                 msg: `El usuario que desea actualizar no existe dentro de nuestra db`
+=======
+            const token = await generateJWT(userComplete.id, userComplete.name, userComplete.email)
+            return res.statu(200).send({
+                msg: `El usuario se actualizo de forma correcta`, userComplete, token
+            });
+        }else{
+            res.status(404).send({
+                msg: `El usuario que desea actualizar con existe dentro de nuestra db`
+>>>>>>> master
             });
         }
         
@@ -132,8 +150,11 @@ const loginUser = async(req, res)=>{
     }
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
 //--------------------------------------------------exportaciones de modulos------------------------------------------------------
 
 module.exports = {

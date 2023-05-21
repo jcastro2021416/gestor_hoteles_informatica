@@ -12,6 +12,7 @@ const  ServiceSchema = new Schema({
         type: Number,
         required: true,
     },
+<<<<<<< HEAD
     hotel: [{
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
@@ -20,6 +21,16 @@ const  ServiceSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Reservation'
     }],
+=======
+    hotel: {
+        tyep: Schema.Types.ObjectId,
+        ref: 'Hotel',
+    },
+    reservations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Reservation'
+    }]
+>>>>>>> master
 })
 
 module.exports = mongoose.model('Service', ServiceSchema)
