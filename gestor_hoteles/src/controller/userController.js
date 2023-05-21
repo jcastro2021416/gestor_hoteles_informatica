@@ -5,24 +5,6 @@ const User = require('../model/userModel')
 const bcrypt = require('bcrypt')
 
 
-//funcion para crear un usuario por defecto
-// const adminApp = async (req, res) => {
-//     try {
-//       let user = new User();
-//       user.name = "ElAdm";
-//       user.email = "ElAdmin@gmail.com";
-//       user.password = "123456";
-//       user.rol = "ADMIN";
-//       const userEncontrado = await User.findOne({ email: user.email });
-//       if (userEncontrado) return console.log("El administrador está listo");
-//       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
-//       user = await user.save();
-//       if (!user) return console.log("El administrador no está listo!");
-//       return console.log("El administrador está listo!");
-//     } catch (err) {
-//       throw new Error(err);
-//     }
-// };
 
 //-------------------------------------Create Usuario--------------------------------------
 const createUser = async(req, res) => {
@@ -200,6 +182,20 @@ const loginUser = async(req, res)=>{
     }
 }
 
+//funcion para crear un usuario por defecto
+// const adminApp = async () => {
+//     const admin = await Usuarios.find();
+//     if(admin.lenght == 0){
+//       let user = new User();
+//       user.name = "ElAdm";
+//       user.email = "ElAdmin@gmail.com";
+//       user.password = "123456";
+//       user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync());
+//       user.rol = "ADMIN";
+//       user = await user.save();
+//       retrun ();
+//     };
+// }
 
 
 //--------------------------------------------------exportaciones de modulos------------------------------------------------------
@@ -209,10 +205,6 @@ module.exports = {
     createUser,
     readUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    // loginUser,
 }
-
-
-
-
-

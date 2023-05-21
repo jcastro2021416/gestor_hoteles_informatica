@@ -4,7 +4,7 @@ import React from 'react'
 export const Habitaciones = () => {
   return (
     <>
-    <div className="contenedor">
+    <div className="contenedorHoet">
         <div className="cuadro">
           <img src="./src/Img/Habitacion1.jpg" alt=""/>
           <h2>Habitación 1</h2>
