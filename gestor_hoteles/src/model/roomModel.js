@@ -2,6 +2,15 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const RoomSchema = new Schema({
+<<<<<<< HEAD
+    numberRoom: {
+        type: Number,
+        required: true,
+    },
+    typeRoom: {
+        type: String,
+        enum:['Individual', 'Double', 'Matrimonial', 'Standar', 'Suite'],
+=======
     number: {
         type: Number,
         required: true,
@@ -9,6 +18,7 @@ const RoomSchema = new Schema({
     type: {
         type: String,
         enum:['single', 'double', 'twin'],
+>>>>>>> master
         required: true,
     },
     price: {
@@ -19,7 +29,12 @@ const RoomSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Hotel',
         required: true,
+<<<<<<< HEAD
+    }
+,
+=======
     },
+>>>>>>> master
     reservations: [{
         type: Schema.Types.ObjectId,
         ref: 'Reservation',

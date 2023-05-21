@@ -22,6 +22,19 @@ const UserSchema = new Schema({
         enum: ['USER', 'ADMIN', 'ADMIN_HOTEL'],
         default: 'USER',
     },
+<<<<<<< HEAD
+    hotel: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Hotel'
+    }],
+    reservations: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Reservation'
+    }],
+    service: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Service'
+=======
     hotel: {
         type: Schema.Types.ObjectId,
         ref: 'Hotel'
@@ -29,6 +42,7 @@ const UserSchema = new Schema({
     reservations: [{
         type: Schema.Types.ObjectId,
         ref: 'Reservation'
+>>>>>>> master
     }]
 });
 

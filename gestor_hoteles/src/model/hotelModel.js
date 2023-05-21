@@ -20,6 +20,13 @@ const HotelSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Event',
     }],
+<<<<<<< HEAD
+    service: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Service',
+    }],
+=======
+>>>>>>> master
     admin: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -27,7 +34,12 @@ const HotelSchema = new Schema({
     createAdmin: {
         type: Date,
         default: Date.now,
+<<<<<<< HEAD
+    },
+    
+=======
     }
+>>>>>>> master
 })
 
 module.exports = mongoose.model('Hotel', HotelSchema)

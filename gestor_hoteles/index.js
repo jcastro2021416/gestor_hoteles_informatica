@@ -7,13 +7,23 @@ require('dotenv').config(); //Se usa para cargar y configurar variables de entor
 const port = process.env.PORT; //Asignamos la varibale PORT a la constante port
 const RouterU = require('./src/routers/user.Routes')
 const RouterH = require('./src/routers/hotel.Routes')
+<<<<<<< HEAD
+const RouterS = require('./src/routers/service.Routes') 
+const RouterR = require('./src/routers/room.Routes');
+const RouterRE = require('./src/routers/reservation.Routes')
+=======
+>>>>>>> master
 connection();
 
 /*express.urlencode es un middlware que usarmos para analizar solicitudes http
 Los Middlware manejan las solicitudes y las respuestas de una aplicacion express*/
 app.use(express.urlencoded({extended: false})); 
 app.use(express.json());
+<<<<<<< HEAD
+app.use('/api', RouterU, RouterH, RouterS, RouterR, RouterRE)
+=======
 app.use('/api', RouterU, RouterH)
+>>>>>>> master
 
 app.listen(port, () => {
     console.log(`Chi esta corriendo en el puerto ${port}`)
