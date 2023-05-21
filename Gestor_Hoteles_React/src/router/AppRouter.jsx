@@ -1,7 +1,9 @@
 import {Navigate,Route,Routes} from "react-router-dom";
-import { HotelPages,Habitaciones, UsuarioHotel, ServiciosHotel } from "../hotel";
+
+import { HotelPages,Habitaciones, UsuarioHotel, ServiciosHotel,Factura } from "../hotel";
 import { LoginHotel } from "../auth";
 import { NavBar } from "../navbar";
+import { Recerva } from "../hotel/pages/Recerva";
 
 export const AppRouter = () => {
   return (
@@ -19,9 +21,15 @@ export const AppRouter = () => {
 
         <Route path="usuarios" element={<UsuarioHotel/>} />
 
+        <Route path="recerva" element={<Recerva/>} />
+
         <Route path="login" element={<LoginHotel/>} />
 
+        <Route path="factura" element={<Factura/>} /> 
+
+
         <Route path="/*" element={<Navigate to="/eventos"/>} />
+
     </Routes>
     </>
   )
