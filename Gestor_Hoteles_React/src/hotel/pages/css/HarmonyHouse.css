@@ -104,3 +104,15 @@
     margin-right: 5px;
 }
 
+
+.siRating{
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.siRating>button{
+ background-color: #003580;
+ color: white;
+ font-weight: bold;
+}
