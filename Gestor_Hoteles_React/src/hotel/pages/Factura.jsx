@@ -92,7 +92,7 @@ export const Factura = () => {
                         <table className="table border-0 table-hover">
                             <tr>
                                 <td>Sub Total:</td>
-                                <td>800$</td>
+                                <td>Q 800</td>
                             </tr>
                             <tr>
                                 <td>Impuesto:</td>

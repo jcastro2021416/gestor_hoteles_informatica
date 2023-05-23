@@ -110,7 +110,26 @@ export const Recerva = () => {
         </div>
       </div>
     </div>
+              <div className="container">
+                <div className="heading mtop">
+                  <h5>Como LLegar </h5>
+                  <h2>  Harmony House </h2>
+                </div>
+              </div>
   </section>
+  <center>  
+        <div className=''>
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.5317289040086!2d-90.53811678255614!3d14.625731200000006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8589a1903189ab39%3A0x8592a66fc5ba4ba7!2s6A%20Avenida%2013-54%2C%20Cdad.%20de%20Guatemala%2001007!5e0!3m2!1ses!2sgt!4v1684857865899!5m2!1ses!2sgt"
+                    width="1200"
+                    height="650"
+                    style={{ border: '0' }}
+                    allowFullScreen=""
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+                </div>
+          </center>
     
         
     </>
