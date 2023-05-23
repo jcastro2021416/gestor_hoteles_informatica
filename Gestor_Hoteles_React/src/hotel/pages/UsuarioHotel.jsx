@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { listUserHotApi } from '../api/UserHotelApi';
+import  './css/usuario.css'
+
 
 
 export const UsuarioHotel = () => {
@@ -18,7 +20,16 @@ export const UsuarioHotel = () => {
   return (
     <>
     <div className="contenedorUsu">
-    <h1>Usuarios</h1>
+    <nav className="navbar navbar-light bg-light">
+      <div className="container-fluid">
+        <a className="navbar-brand">Buscar Usuarios</a>
+          <form className="d-flex" role="search">
+          <input className="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar"/>
+          <button className="btn btn-outline-success" type="submit">Buscar</button>
+          </form>
+      </div>
+    </nav><br />
+    
         <div>
             <table className="table">
                 <thead>

@@ -1,3 +1,4 @@
+import  './css/factura.css'
 
 
 export const Factura = () => {
@@ -95,19 +96,19 @@ export const Factura = () => {
                             </tr>
                             <tr>
                                 <td>Impuesto:</td>
-                                <td>15$</td>
+                                <td>15</td>
                             </tr>
         
                             <tfoot>
                                 <tr>
                                     <td>Total:</td>
-                                    <td>825$</td>
+                                    <td>Q 825</td>
                                 </tr>
                             </tfoot>
                         </table>
 
                         <div className="col-12">
-                            <p className="text-center m-0"> Director Signature </p>
+                            <p className="text-center m-0"> Director Signature Castro Laynez </p>
                         </div>
                     </div>
                 </div>
