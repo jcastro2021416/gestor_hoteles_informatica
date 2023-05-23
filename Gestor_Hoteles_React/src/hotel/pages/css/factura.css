@@ -1,0 +1,54 @@
+:root {
+    --body-bg: rgb(204, 204, 204);
+    --white: #ffffff;
+    --darkWhite: #ccc;
+    --black: #000000;
+    --dark: #615c60;
+    --themeColor: #22b8d1;
+    --pageShadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+}
+
+
+
+/* Product Section */
+thead {
+    color: var(--white);
+    background: var(--themeColor);
+}
+
+.table td,
+.table th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+tr th:first-child,
+tr td:first-child {
+    text-align: left;
+}
+
+.media img {
+    height: 60px;
+    width: 60px;
+}
+
+.media p {
+    font-weight: 400;
+    margin: 0;
+}
+
+.media p.title {
+    font-weight: 600;
+}
+
+/* Cart BG */
+.cart-bg {
+    height: 250px;
+    bottom: 32px;
+    left: -40px;
+    opacity: 0.3;
+    position: absolute;
+}
+
+
+

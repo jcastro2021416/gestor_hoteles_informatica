@@ -1,0 +1,43 @@
+html {
+    height: 100%;
+      background-image: url("../img/hoteles.jpg");
+  
+    
+  }
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 30px;
+    transform: translate(-50%, -50%);
+    background:   #172234  ;
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px    #172234 ;
+    border-radius: 1px;
+  }
+  
+  .login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .login-box .user-box {
+    position: relative;
+  }
+  
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  
+  
